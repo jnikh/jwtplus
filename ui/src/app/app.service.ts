@@ -23,6 +23,23 @@ export interface AppDetails{
   update_time: number,
   last_key_rotate: number
 }
+export interface AppCreate{
+  name: string,
+  description: string,
+  token_expiry: number,
+  token_notbefore: number,
+  refresh_expiry: number,
+  refresh_notbefore: number,
+  key_type: string,
+  algo: string,
+  rotation_period: number,
+}
+export interface AppCreateResponse{
+  algo:string,
+  app_id:string,
+  app_key:string,
+  public_key:string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -49,9 +66,16 @@ export class AppService {
     );
   }
 
-  getAllProjects(rootKey:string){
+  getAllProjects(){
     return this.http.get<AppDetails>(
-			environment.APIENDPOINT + "/root"
+			environment.APIENDPOINT + "/root/list"
 		);
-  } 
-}
+  }
+  
+  createApp(formData: AppCreate) {
+    return this.http.post<AppCreateResponse>(
+      environment.APIENDPOINT + "/root/create", 
+      formData,
+    );
+  }
+}  
