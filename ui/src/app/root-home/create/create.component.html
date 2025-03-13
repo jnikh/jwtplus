@@ -22,46 +22,46 @@
 
     <!-- Token Expiry -->
     <div class="mb-3">
-      <label for="token_expiry" class="form-label">Token Expiry (in minutes)</label>
-      <input type="number" id="token_expiry" class="form-control" formControlName="token_expiry">
-      <small class="text-danger" *ngIf="createForm.controls['token_expiry'].invalid && createForm.controls['token_expiry'].touched">
-        Token expiry must be greater than 0.
+      <label for="token_expire" class="form-label">Token Expiry (in seconds)</label>
+      <input type="number" id="token_expire" class="form-control" formControlName="token_expire">
+      <small class="text-danger" *ngIf="createForm.controls['token_expire'].invalid && createForm.controls['token_expire'].touched">
+        Token expiry must be between 60 & 315,36,000 seconds.
       </small>
     </div>
 
     <!-- Token Not Before -->
     <div class="mb-3">
-      <label for="token_notbefore" class="form-label">Token Not Before (in minutes)</label>
+      <label for="token_notbefore" class="form-label">Token Not Before (in seconds)</label>
       <input type="number" id="token_notbefore" class="form-control" formControlName="token_notbefore">
       <small class="text-danger" *ngIf="createForm.controls['token_notbefore'].invalid && createForm.controls['token_notbefore'].touched">
-        Token Not Before cannot be negative.
+        Token Not Before must be between 0 & 315,36,000 seconds.
       </small>
     </div>
 
     <!-- Refresh Expiry -->
     <div class="mb-3">
-      <label for="refresh_expiry" class="form-label">Refresh Expiry (in minutes)</label>
-      <input type="number" id="refresh_expiry" class="form-control" formControlName="refresh_expiry">
-      <small class="text-danger" *ngIf="createForm.controls['refresh_expiry'].invalid && createForm.controls['refresh_expiry'].touched">
-        Refresh expiry must be greater than 0.
+      <label for="refresh_expire" class="form-label">Refresh Expiry (in seconds)</label>
+      <input type="number" id="refresh_expire" class="form-control" formControlName="refresh_expire">
+      <small class="text-danger" *ngIf="createForm.controls['refresh_expire'].invalid && createForm.controls['refresh_expire'].touched">
+        Refresh expiry must be between 60 & 315,36,000 seconds.
       </small>
     </div>
     
     <div class="mb-3">
-      <label for="refresh_notbefore" class="form-label">Refresh not before (in minutes)</label>
+      <label for="refresh_notbefore" class="form-label">Refresh not before (in seconds)</label>
       <input type="number" id="refresh_notbefore" class="form-control" formControlName="refresh_notbefore">
       <small class="text-danger" *ngIf="createForm.controls['refresh_notbefore'].invalid && createForm.controls['refresh_notbefore'].touched">
-        Refresh expiry must be greater than 0.
+        Refresh expiry must be between 60 & 315,36,000 seconds.
       </small>
     </div>
 
     <!-- Key Type -->
     <div class="mb-3">
       <label for="key_type" class="form-label">Key Type</label>
-      <select id="key_type" class="form-control" formControlName="key_type">
-        <option value="" disabled selected>Select Key Type</option>
-        <option value="symmetric">RSA</option>
-        <option value="asymmetric">ECDSA</option>
+      <select id="key_type" class="form-select" formControlName="key_type">
+        <option value="" selected="selected">Select Key Type</option>
+        <option value="RSA">RSA</option>
+        <option value="ECDSA">ECDSA</option>
       </select>
       <small class="text-danger" *ngIf="createForm.controls['key_type'].invalid && createForm.controls['key_type'].touched">
         Key type is required.
@@ -71,17 +71,17 @@
     <!-- Algorithm -->
     <div class="mb-3">
       <label for="algo" class="form-label">Algorithm</label>
-      <select id="algo" class="form-control" formControlName="algo">
-        <option value="" disabled selected>Select Algorithm</option>
-        <option value="RSA">RS256</option>
-        <option value="AES">RS384</option>
-        <option value="SHA256">RS512</option>
-        <option value="SHA256">ES256</option>
-        <option value="SHA256">ES384</option>
-        <option value="SHA256">ES512</option>
-        <option value="SHA256">PS256</option>
-        <option value="SHA256">PS384</option>
-        <option value="SHA256">PS512</option>
+      <select id="algo" class="form-select" formControlName="algo">
+        <option value="" selected="selected">Select Algorithm</option>
+        <option value="RS256">RS256</option>
+        <option value="RS384">RS384</option>
+        <option value="RS512">RS512</option>
+        <option value="ES256">ES256</option>
+        <option value="ES384">ES384</option>
+        <option value="ES512">ES512</option>
+        <option value="PS256">PS256</option>
+        <option value="PS384">PS384</option>
+        <option value="PS512">PS512</option>
       </select>
       <small class="text-danger" *ngIf="createForm.controls['algo'].invalid && createForm.controls['algo'].touched">
         Algorithm is required.
@@ -90,10 +90,10 @@
 
     <!-- Rotation Period -->
     <div class="mb-3">
-      <label for="rotation_period" class="form-label">Rotation Period (in days)</label>
+      <label for="rotation_period" class="form-label">Rotation Period (in seconds)</label>
       <input type="number" id="rotation_period" class="form-control" formControlName="rotation_period">
       <small class="text-danger" *ngIf="createForm.controls['rotation_period'].invalid && createForm.controls['rotation_period'].touched">
-        Rotation period must be greater than 0.
+        Rotation period must be between 60 & 315,36,000 seconds.
       </small>
     </div>
 

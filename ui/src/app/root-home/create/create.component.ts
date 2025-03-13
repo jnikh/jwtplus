@@ -24,13 +24,13 @@ export class CreateComponent {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      token_expiry: ['', [Validators.required, Validators.min(1)]],
-      token_notbefore: ['', [Validators.required, Validators.min(0)]],
-      refresh_expiry: ['', [Validators.required, Validators.min(1)]],
-      refresh_notbefore: ['', [Validators.required, Validators.min(0)]],
+      token_expire: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
+      token_notbefore: ['', [Validators.required, Validators.min(0), Validators.max(31536000)]],
+      refresh_expire: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
+      refresh_notbefore: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
       key_type: ['', Validators.required],
       algo: ['', Validators.required],
-      rotation_period: ['', [Validators.required, Validators.min(1)]],
+      rotation_period: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
     });
   }
   // Handle form submission
@@ -43,9 +43,9 @@ export class CreateComponent {
     let formData : AppCreate ={
           name: this.createForm.get('name')?.value as string,
           description: this.createForm.get('description')?.value as string,
-          token_expiry: this.createForm.get('token_expiry')?.value as number,
+          token_expire: this.createForm.get('token_expire')?.value as number,
           token_notbefore: this.createForm.get('token_notbefore')?.value as  number,
-          refresh_expiry: this.createForm.get('refresh_expiry')?.value as number,
+          refresh_expire: this.createForm.get('refresh_expire')?.value as number,
           refresh_notbefore: this.createForm.get('refresh_notbefore')?.value as  number,
           key_type: this.createForm.get('key_type')?.value as string,
           algo: this.createForm.get('algo')?.value as string,
@@ -54,10 +54,9 @@ export class CreateComponent {
     this.appService.createApp(formData).subscribe({
       next: (response) => {
         this.toasterService.show('Application created successfully!', 'bg-success text-light');
-        this.router.navigate(['/list-all']);
+        this.router.navigateByUrl('/root-home');
       },
       error: (error) => {
-        console.error('Error creating app:', error);
         this.toasterService.show('Failed to create application.', 'bg-danger text-light');
       },
       complete: () => {

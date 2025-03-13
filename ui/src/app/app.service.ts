@@ -26,9 +26,9 @@ export interface AppDetails{
 export interface AppCreate{
   name: string,
   description: string,
-  token_expiry: number,
+  token_expire: number,
   token_notbefore: number,
-  refresh_expiry: number,
+  refresh_expire: number,
   refresh_notbefore: number,
   key_type: string,
   algo: string,
