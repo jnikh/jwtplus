@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <h2>Create New Application</h2>
-  <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit(modalContent)">
     
     <!-- Name Field -->
     <div class="mb-3">
@@ -104,3 +104,25 @@
     </button>
   </form>
 </div>
+
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Application Created</h4>
+    
+    <button type="button" class="btn-close" aria-label="Close" (click)="goToRootApp()" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+    <p class="modal-title">This Things Should be saved it will not show again </p>
+    <p><strong>Your Algo:</strong>{{apiResponse?.algo}}</p>
+    <p><strong>App ID:</strong>{{apiResponse?.app_id}}</p>
+    <p><strong>App Key:</strong></p>
+    <textarea class="form-control" readonly>{{ apiResponse?.app_key }}</textarea>
+    <p><strong>Public Key:</strong></p>
+    <textarea class="form-control" readonly>{{ apiResponse?.public_key }}</textarea>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="goToRootApp()" (click)="modal.dismiss('Cross click')">Close</button>
+  </div>
+
+</ng-template>

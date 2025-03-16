@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../../app.service';
 import { ToasterService } from '../../shared/toaster/toaster.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-all',
@@ -10,15 +11,28 @@ import { ToasterService } from '../../shared/toaster/toaster.service';
   styleUrl: './list-all.component.scss'
 })
 export class ListAllComponent implements OnInit {
-  apps: any[] = []; 
+  apps: any[] = [];
+  selectedAppId: string | null = null;
+  modalRef: NgbModalRef | null = null;
+  apiResponse: any = null;
+
+  @ViewChild('deleteModal') deleteModal!: TemplateRef<any>;
+  @ViewChild('flushModal') flushModal!: TemplateRef<any>;
+  @ViewChild('rotateAppKeyModal') rotateAppKeyModal!: TemplateRef<any>;
+  @ViewChild('rotateAppKeyModalResponse') rotateAppKeyModalResponse!: TemplateRef<any>; // Add this
 
   constructor(
     private service: AppService, 
     private router: Router,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
+    this.loadApps();
+  }
+
+  loadApps() {
     this.service.getAllProjects().subscribe({
       next: (response: any) => {
         console.log('API Response:', response);
@@ -32,5 +46,74 @@ export class ListAllComponent implements OnInit {
 
   goToCreatApp() {
     this.router.navigate(['/root-home/create']);
+  }
+
+  goToHome() {
+    this.router.navigate(['/root-home']);
+  }
+
+  openDeleteModal(appId: string) {
+    this.selectedAppId = appId;
+    this.modalRef = this.modalService.open(this.deleteModal, { centered: true });
+  }
+
+  openFlushModal(appId: string) {
+    this.selectedAppId = appId;
+    this.modalRef = this.modalService.open(this.flushModal, { centered: true });
+  }
+
+  openRotateAppKeyModal(appId: string) {
+    this.selectedAppId = appId;
+    this.modalRef = this.modalService.open(this.rotateAppKeyModal, { centered: true });
+  }
+
+  confirmDelete() {
+    if (this.selectedAppId) {
+      this.service.deleteProject(this.selectedAppId).subscribe({
+        next: () => {
+          this.apps = this.apps.filter(app => app.id !== this.selectedAppId);
+          this.toasterService.show("Application deleted successfully.", "bg-success text-light");
+          this.modalRef?.close();
+        },
+        error: () => {
+          this.toasterService.show("Failed to delete the application.", "bg-danger text-light");
+        }
+      });
+    }
+  }
+
+  confirmFlush() {
+    if (this.selectedAppId) {
+      this.service.flushProject(this.selectedAppId).subscribe({
+        next: () => {
+          this.apps = this.apps.filter(app => app.id !== this.selectedAppId);
+          this.toasterService.show("Application flushed successfully.", "bg-success text-light");
+          this.modalRef?.close();
+        },
+        error: () => {
+          this.toasterService.show("Failed to flush the application.", "bg-danger text-light");
+        }
+      });
+    }
+  }
+
+  confirmRotateAppKey() {
+    if (this.selectedAppId) {
+      this.service.rotateAppKey(this.selectedAppId).subscribe({
+        next: (response) => {
+          this.apiResponse = response; 
+          this.toasterService.show("App key rotated successfully.", "bg-success text-light");
+          this.modalRef?.close(); 
+          this.openRotateAppKeyModalResponse(); 
+        },
+        error: () => {
+          this.toasterService.show("Failed to rotate the app key.", "bg-danger text-light");
+        }
+      });
+    }
+  }
+
+  openRotateAppKeyModalResponse() {
+    this.modalRef = this.modalService.open(this.rotateAppKeyModalResponse, { centered: true });
   }
 }

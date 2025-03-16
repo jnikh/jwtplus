@@ -40,6 +40,9 @@ export interface AppCreateResponse{
   app_key:string,
   public_key:string
 }
+export interface DeleteApp{
+  app_id:string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -77,5 +80,22 @@ export class AppService {
       environment.APIENDPOINT + "/root/create", 
       formData,
     );
+  }
+  
+  deleteProject(appId: string){
+    return this.http.delete<DeleteApp>(
+      environment.APIENDPOINT + '/root/' + appId
+    );
+  }
+
+  flushProject(appId:string){
+    return this.http.delete<DeleteApp>(
+    environment.APIENDPOINT + `/root/${appId}/flush`
+    )
+  }
+  rotateAppKey(appId:string){
+    return this.http.get<DeleteApp>(
+    environment.APIENDPOINT + `/root/${appId}/rotate/key`
+    )
   }
 }  
