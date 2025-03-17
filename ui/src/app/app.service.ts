@@ -34,6 +34,16 @@ export interface AppCreate{
   algo: string,
   rotation_period: number,
 }
+
+export interface AppUpdate{
+  name:string,
+  description:string,
+  token_expire:number,
+  token_notbefore:number,
+  refresh_expire:number,
+  refresh_notbefore:number,
+  rotation_period:number
+}
 export interface AppCreateResponse{
   algo:string,
   app_id:string,
@@ -96,6 +106,17 @@ export class AppService {
   rotateAppKey(appId:string){
     return this.http.get<DeleteApp>(
     environment.APIENDPOINT + `/root/${appId}/rotate/key`
+    )
+  }
+  rotateAppPki(appId:string){
+    return this.http.get<DeleteApp>(
+    environment.APIENDPOINT + `/root/${appId}/rotate/pki`
+    )
+  }
+  updateApp(appId:string ,formData:AppUpdate){
+    return this.http.patch<AppDetails>(
+    environment.APIENDPOINT + `/root/${appId}`,
+    formData
     )
   }
 }  

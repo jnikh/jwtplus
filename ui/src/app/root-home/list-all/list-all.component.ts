@@ -15,12 +15,17 @@ export class ListAllComponent implements OnInit {
   selectedAppId: string | null = null;
   modalRef: NgbModalRef | null = null;
   apiResponse: any = null;
+  appResponse: any = null;
+  updatedKey: string = '';
 
   @ViewChild('deleteModal') deleteModal!: TemplateRef<any>;
   @ViewChild('flushModal') flushModal!: TemplateRef<any>;
   @ViewChild('rotateAppKeyModal') rotateAppKeyModal!: TemplateRef<any>;
   @ViewChild('rotateAppKeyModalResponse') rotateAppKeyModalResponse!: TemplateRef<any>; // Add this
-
+  @ViewChild('rotateAppPkiModal') rotateAppPkiModal!: TemplateRef<any>;
+  @ViewChild('rotateAppPkiModalResponse') rotateAppPkiModalResponse!: TemplateRef<any>;
+  @ViewChild('updateAppKeyModal') updateAppKeyModal!: TemplateRef<any>;
+  
   constructor(
     private service: AppService, 
     private router: Router,
@@ -65,6 +70,16 @@ export class ListAllComponent implements OnInit {
   openRotateAppKeyModal(appId: string) {
     this.selectedAppId = appId;
     this.modalRef = this.modalService.open(this.rotateAppKeyModal, { centered: true });
+  }
+  
+  openRotatePkiModal(appId:string){
+    this.selectedAppId = appId;
+    this.modalRef= this.modalService.open(this.rotateAppPkiModal,{centered:true});
+  }
+  openUpdateKeyModal(appId:string){
+    this.selectedAppId = appId;
+    this.updatedKey=""
+    this.modalRef= this.modalService.open(this.rotateAppPkiModal,{centered:true});
   }
 
   confirmDelete() {
@@ -113,7 +128,32 @@ export class ListAllComponent implements OnInit {
     }
   }
 
+  confirmRotatPki(){
+    if(this.selectedAppId){
+      this.modalRef?.close();
+      this.service.rotateAppPki(this.selectedAppId).subscribe({
+        next:(response) => {
+         this.appResponse = response;
+         
+         this.toasterService.show("App key rotated successfully." , "bg-success text-light");
+         
+         this.openRotateAppPkiModalResponse();
+        },
+        error: ()=>{
+          this.toasterService.show("Failed to rotate the app Pki","bg-danger text-light")
+        }
+      })
+    }
+  }
+  
+  
+  openRotateAppPkiModalResponse() {
+    this.modalRef = this.modalService.open(this.rotateAppPkiModalResponse, { centered: true });
+  }
+
   openRotateAppKeyModalResponse() {
     this.modalRef = this.modalService.open(this.rotateAppKeyModalResponse, { centered: true });
   }
 }
+
+  

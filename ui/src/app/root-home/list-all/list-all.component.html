@@ -63,6 +63,21 @@
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M19.95 11a8 8 0 1 0 -.5 4m.5 5v-5h-5" />
             </svg>
+
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rotate-2 " (click)="openRotatePkiModal(app.id)">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M15 4.55a8 8 0 0 0 -6 14.9m0 -4.45v5h-5" />
+              <path d="M18.37 7.16l0 .01" /><path d="M13 19.94l0 .01" />
+              <path d="M16.84 18.37l0 .01" /><path d="M19.37 15.1l0 .01" />
+              <path d="M19.94 11l0 .01" />
+            </svg>
+
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-pencil-check">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+              <path d="M13.5 6.5l4 4" />
+              <path d="M15 19l2 2l4 -4" />
+            </svg>
           </td>
         </tr>
       </tbody>
@@ -136,6 +151,41 @@
     <p><strong>Your App ID:</strong> {{ apiResponse?.app_id }}</p>
     <p><strong>Your App Key:</strong> </p>
     <textarea class="form-control" readonly>{{ apiResponse?.app_key }}</textarea>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #rotateAppPkiModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm Rotate App Pki Key</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="goToHome()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to Rotate the app Pki key ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="confirmRotatPki()" (click)="openRotateAppPkiModalResponse()">Yes, rotate</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')" (click)="goToHome()">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #rotateAppPkiModalResponse let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Rotate App Pki Key Response</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This Should be saved in your computer </p>
+    <p><strong>Your App ID:</strong> {{ appResponse?.algo }}</p>
+    <p><strong>Your App ID:</strong> {{ appResponse?.app_id }}</p>
+    <p><strong>Your App Key:</strong> </p>
+    <textarea class="form-control" readonly>{{ appResponse?.new_public_key }}</textarea>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Close</button>
