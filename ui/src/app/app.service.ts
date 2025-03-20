@@ -114,7 +114,7 @@ export class AppService {
     )
   }
   updateApp(appId:string ,formData:AppUpdate){
-    return this.http.patch<AppDetails>(
+    return this.http.patch<AppUpdate>(
     environment.APIENDPOINT + `/root/${appId}`,
     formData
     )

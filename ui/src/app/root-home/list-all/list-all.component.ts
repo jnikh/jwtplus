@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppService } from '../../app.service';
+import { AppUpdate, AppService, AppDetails } from '../../app.service';
 import { ToasterService } from '../../shared/toaster/toaster.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,21 +18,44 @@ export class ListAllComponent implements OnInit {
   apiResponse: any = null;
   appResponse: any = null;
   updatedKey: string = '';
+  createForm: FormGroup;
+  updateForm: FormGroup;
 
   @ViewChild('deleteModal') deleteModal!: TemplateRef<any>;
   @ViewChild('flushModal') flushModal!: TemplateRef<any>;
   @ViewChild('rotateAppKeyModal') rotateAppKeyModal!: TemplateRef<any>;
-  @ViewChild('rotateAppKeyModalResponse') rotateAppKeyModalResponse!: TemplateRef<any>; // Add this
+  @ViewChild('rotateAppKeyModalResponse') rotateAppKeyModalResponse!: TemplateRef<any>;
   @ViewChild('rotateAppPkiModal') rotateAppPkiModal!: TemplateRef<any>;
   @ViewChild('rotateAppPkiModalResponse') rotateAppPkiModalResponse!: TemplateRef<any>;
   @ViewChild('updateAppKeyModal') updateAppKeyModal!: TemplateRef<any>;
-  
+
   constructor(
+    private fb: FormBuilder,
     private service: AppService, 
     private router: Router,
     private toasterService: ToasterService,
     private modalService: NgbModal
-  ) {}
+  ) {
+    this.createForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      token_expire: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
+      token_notbefore: ['', [Validators.required, Validators.min(0), Validators.max(31536000)]],
+      refresh_expire: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
+      refresh_notbefore: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
+      rotation_period: ['', [Validators.required, Validators.min(60), Validators.max(31536000)]],
+    });
+
+    this.updateForm = this.fb.group({
+      name: [''],
+      description: [''],
+      token_expire: [0],
+      token_notbefore: [0],
+      refresh_expire: [0],
+      refresh_notbefore: [0],
+      rotation_period: [0]
+    });
+  }
 
   ngOnInit(): void {
     this.loadApps();
@@ -72,14 +96,24 @@ export class ListAllComponent implements OnInit {
     this.modalRef = this.modalService.open(this.rotateAppKeyModal, { centered: true });
   }
   
-  openRotatePkiModal(appId:string){
+  openRotatePkiModal(appId: string) {
     this.selectedAppId = appId;
-    this.modalRef= this.modalService.open(this.rotateAppPkiModal,{centered:true});
+    this.modalRef = this.modalService.open(this.rotateAppPkiModal, { centered: true });
   }
-  openUpdateKeyModal(appId:string){
-    this.selectedAppId = appId;
-    this.updatedKey=""
-    this.modalRef= this.modalService.open(this.rotateAppPkiModal,{centered:true});
+
+  openUpdateKeyModal(app: AppDetails) {
+    this.selectedAppId = app.id;
+    this.updateForm.patchValue({
+      name: app.name,
+      description: app.description,
+      token_expire: app.token_expiry,
+      token_notbefore: app.token_notbefore,
+      refresh_expire: app.refresh_expiry,
+      refresh_notbefore: app.refresh_notbefore,
+      rotation_period: app.rotation_period
+    });
+
+    this.modalRef = this.modalService.open(this.updateAppKeyModal, { centered: true });
   }
 
   confirmDelete() {
@@ -128,32 +162,57 @@ export class ListAllComponent implements OnInit {
     }
   }
 
-  confirmRotatPki(){
-    if(this.selectedAppId){
+  confirmRotatPki() {
+    if (this.selectedAppId) {
       this.modalRef?.close();
       this.service.rotateAppPki(this.selectedAppId).subscribe({
-        next:(response) => {
-         this.appResponse = response;
-         
-         this.toasterService.show("App key rotated successfully." , "bg-success text-light");
-         
-         this.openRotateAppPkiModalResponse();
+        next: (response) => {
+          this.appResponse = response;
+          this.toasterService.show("App key rotated successfully.", "bg-success text-light");
+          this.openRotateAppPkiModalResponse();
         },
-        error: ()=>{
-          this.toasterService.show("Failed to rotate the app Pki","bg-danger text-light")
+        error: () => {
+          this.toasterService.show("Failed to rotate the app Pki", "bg-danger text-light");
         }
-      })
+      });
     }
   }
-  
-  
+
+  confirmUpdate() {
+    if (this.selectedAppId) {
+      const formData: AppUpdate = {
+        name: this.updateForm.get('name')?.value as string,
+        description: this.updateForm.get('description')?.value as string,
+        token_expire: this.updateForm.get('token_expire')?.value as number,
+        token_notbefore: this.updateForm.get('token_notbefore')?.value as number,
+        refresh_expire: this.updateForm.get('refresh_expire')?.value as number,
+        refresh_notbefore: this.updateForm.get('refresh_notbefore')?.value as number,
+        rotation_period: this.updateForm.get('rotation_period')?.value as number,
+      };
+
+      this.service.updateApp(this.selectedAppId, formData).subscribe({
+        next: (response) => {
+          this.appResponse = response;
+          this.toasterService.show('Application updated successfully!', 'bg-success text-light');
+          this.loadApps(); // Refresh the app list
+          this.modalRef?.close();
+        },
+        error: () => {
+          this.toasterService.show("Failed to update the app data", "bg-danger text-light");
+        }
+      });
+    }
+  }
+   
   openRotateAppPkiModalResponse() {
-    this.modalRef = this.modalService.open(this.rotateAppPkiModalResponse, { centered: true });
+    if (this.selectedAppId) {
+      this.modalRef = this.modalService.open(this.rotateAppPkiModalResponse, { centered: true });
+    } else {
+      this.toasterService.show("Error: No App ID selected.", "bg-danger text-light");
+    }
   }
 
   openRotateAppKeyModalResponse() {
     this.modalRef = this.modalService.open(this.rotateAppKeyModalResponse, { centered: true });
   }
 }
-
-  

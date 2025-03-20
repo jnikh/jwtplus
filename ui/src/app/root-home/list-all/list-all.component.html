@@ -72,7 +72,7 @@
               <path d="M19.94 11l0 .01" />
             </svg>
 
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-pencil-check">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-pencil-check" (click)="openUpdateKeyModal(app)">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
               <path d="M13.5 6.5l4 4" />
@@ -105,7 +105,7 @@
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')" (click)="goToHome()">Cancel</button>
   </div>
 </ng-template>
-
+<!-- flush modal -->
 <ng-template #flushModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Confirm Flush</h4>
@@ -156,7 +156,7 @@
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Close</button>
   </div>
 </ng-template>
-
+<!-- rotateapppkimodal -->
 <ng-template #rotateAppPkiModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Confirm Rotate App Pki Key</h4>
@@ -172,7 +172,7 @@
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')" (click)="goToHome()">Cancel</button>
   </div>
 </ng-template>
-
+<!-- rotateapppkiresponse -->
 <ng-template #rotateAppPkiModalResponse let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Rotate App Pki Key Response</h4>
@@ -189,5 +189,46 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #updateAppKeyModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Update Application</h4>
+    <button type="button" class="close" (click)="modal.dismiss()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="updateForm">
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control" formControlName="description">
+      </div>
+      <div class="form-group">
+        <label>Token Expiry:</label>
+        <input type="number" class="form-control" formControlName="token_expire">
+      </div>
+      <div class="form-group">
+        <label>Token Not before:</label>
+        <input type="number" class="form-control" formControlName="token_notbefore">
+      </div>
+      <div class="form-group">
+        <label>Refresh Expire:</label>
+        <input type="number" class="form-control" formControlName="refresh_expire">
+      </div>
+      <div class="form-group">
+        <label>Refresh Not Before:</label>
+        <input type="number" class="form-control" formControlName="refresh_notbefore">
+      </div>
+      <div class="form-group">
+        <label>Rotation Period:</label>
+        <input type="number" class="form-control" formControlName="rotation_period">
+      </div>
+      
+      <button type="button" class="btn btn-primary mt-3" (click)="confirmUpdate()">Save</button>
+    </form>
   </div>
 </ng-template>
