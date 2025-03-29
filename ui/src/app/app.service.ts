@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
 
 export interface KeyTestPayload{
   loginType: string,
@@ -54,19 +55,19 @@ export interface DeleteApp{
   app_id:string;
 }
 export interface Appdata{
-  id: string,
-  name: string,
-  description: string,
-  token_expiry: number,
-  token_notbefore: number,
-  refresh_expiry: number,
-  refresh_notbefore: number,
-  key_type: string,
-  algo: string,
-  rotation_period: number,
-  add_time: number,
-  update_time: number,
-  last_key_rotate: number
+  id: string;
+  name: string;
+  description: string;
+  token_expiry: number;
+  token_notbefore: number;
+  refresh_expiry: number;
+  refresh_notbefore: number;
+  key_type: string;
+  algo: string;
+  rotation_period: number;
+  add_time: number;
+  update_time: number;
+  last_key_rotate: number;
 }
 
 @Injectable({
@@ -135,11 +136,12 @@ export class AppService {
     )
   }
 
-  getAppData(appId:string){
-    return this.http.get<Appdata>(
-    environment.APIENDPOINT+`/app/${appId}`
-  )}
-
+  getAppData(appId: string): Observable<{ app: Appdata }> {
+    return this.http.get<{ app: Appdata }>(
+      environment.APIENDPOINT + `/app/${appId}`
+    );
+  }
+  
 
 
 }  
