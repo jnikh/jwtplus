@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppService , Appdata} from '../../app.service';
+
 @Component({
   selector: 'app-list-app',
   standalone: false,
@@ -11,7 +13,7 @@ export class ListAppComponent implements OnInit{
    appId : string ="";
    app:any = {}
 
-   constructor(private appService: AppService){}
+   constructor(private appService: AppService , private router:Router){}
    ngOnInit(): void {
      this.appId = sessionStorage.getItem('appId') || '';
      if(this.appId){
@@ -30,4 +32,7 @@ export class ListAppComponent implements OnInit{
       }
     });
    }
+   goToPubKey() {
+    this.router.navigate(['/app-home/getpub']);
+  }
 }

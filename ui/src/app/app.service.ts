@@ -69,6 +69,15 @@ export interface Appdata{
   update_time: number;
   last_key_rotate: number;
 }
+export interface AppPubKeyData{
+  key_id:string,
+  public_key:string,
+  key_type:string,
+  key_algo:string,
+  exp_time: number,
+  is_expired: string,
+  is_revoked: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -135,13 +144,18 @@ export class AppService {
     formData
     )
   }
-
+// App services
   getAppData(appId: string): Observable<{ app: Appdata }> {
     return this.http.get<{ app: Appdata }>(
       environment.APIENDPOINT + `/app/${appId}`
     );
   }
   
+  getAppPubKey(appId: string): Observable<{ keys: AppPubKeyData[] }> {
+    return this.http.get<{ keys: AppPubKeyData[] }>(
+      environment.APIENDPOINT + `/app/${appId}/pub-keys`
+    );
+  }
 
 
 }  

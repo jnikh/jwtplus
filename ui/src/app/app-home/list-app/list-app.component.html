@@ -1,7 +1,10 @@
 
 <div *ngIf="appdata; else loading" class="container">
-    <h1 class="text-center mt-5 mb-4">App Details</h1>
-    <table class="table table-striped table-bordered table-responsive-sm text-center">
+    <div  class="d-flex justify-content-between mt-5 mb-4 " >
+    <h1 class="">App Details</h1>
+    <button class="btn btn-primary" (click)="goToPubKey()">Get Pub Key</button>
+   </div>
+    <table class="table table-striped table-bordered table-responsive-sm ">
     
       <tbody>
         <tr>

@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { AppHomeRoutingModule } from './app-home-routing.module';
 import { AppHomeComponent } from './app-home.component';
 import { ListAppComponent } from './list-app/list-app.component';
+import { ListPubComponent } from './list-pub/list-pub.component';
 
 
 @NgModule({
   declarations: [
     AppHomeComponent,
-    ListAppComponent
+    ListAppComponent,
+    ListPubComponent
   ],
   imports: [
     CommonModule,
