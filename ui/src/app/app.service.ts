@@ -53,6 +53,21 @@ export interface AppCreateResponse{
 export interface DeleteApp{
   app_id:string;
 }
+export interface Appdata{
+  id: string,
+  name: string,
+  description: string,
+  token_expiry: number,
+  token_notbefore: number,
+  refresh_expiry: number,
+  refresh_notbefore: number,
+  key_type: string,
+  algo: string,
+  rotation_period: number,
+  add_time: number,
+  update_time: number,
+  last_key_rotate: number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -119,4 +134,18 @@ export class AppService {
     formData
     )
   }
+
+  getAppData(appId:string){
+    return this.http.get<Appdata>(
+    environment.APIENDPOINT+`/app/${appId}`
+  )}
+
+
+
 }  
+
+
+
+
+
+      

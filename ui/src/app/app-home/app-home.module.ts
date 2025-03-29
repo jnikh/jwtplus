@@ -14,4 +14,7 @@ import { AppHomeComponent } from './app-home.component';
     AppHomeRoutingModule
   ]
 })
-export class AppHomeModule { }
+export class AppHomeModule {
+
+  constructor(){}
+ }

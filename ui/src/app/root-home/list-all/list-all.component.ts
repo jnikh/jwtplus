@@ -3,13 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppUpdate, AppService, AppDetails } from '../../app.service';
 import { ToasterService } from '../../shared/toaster/toaster.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef ,NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-all',
   standalone: false,
   templateUrl: './list-all.component.html',
-  styleUrl: './list-all.component.scss'
+  styleUrl: './list-all.component.scss',
+  // imports:[NgbDropdownModule]
+ 
 })
 export class ListAllComponent implements OnInit {
   apps: any[] = [];

@@ -7,6 +7,7 @@ import { ListAllComponent } from './list-all/list-all.component';
 import { CreateComponent } from './create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UpdateComponent } from './update/update.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -15,11 +16,14 @@ import { UpdateComponent } from './update/update.component';
     ListAllComponent,
     CreateComponent,
     UpdateComponent
+
   ],
   imports: [
     CommonModule,
     RootHomeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbDropdownModule
+
   ]
 })
 export class RootHomeModule { }

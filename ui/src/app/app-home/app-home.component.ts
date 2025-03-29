@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-app-home',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './app-home.component.html',
   styleUrl: './app-home.component.scss'
 })
-export class AppHomeComponent {
 
+export class AppHomeComponent {
+   
 }
