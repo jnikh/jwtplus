@@ -1,0 +1,25 @@
+<div class="auth-container">
+    <h2>Generate Auth & Refresh Tokens</h2>
+
+    <form [formGroup]="authForm" (ngSubmit)="generateTokens()">
+        <label>Subject (sub):</label>
+        <input formControlName="sub" type="text" placeholder="Enter subject" required />
+
+        <label>Audience (aud):</label>
+        <input formControlName="aud" type="text" placeholder="Enter audience" required />
+
+        <label>IP Address:</label>
+        <input formControlName="ip" type="text" placeholder="Enter IP address" required />
+
+        <label>User Agent:</label>
+        <input formControlName="userAgent" type="text" placeholder="Enter user agent" required /> 
+        
+
+        <button type="submit">Generate Tokens</button>
+    </form>
+
+    <div *ngIf="responseData">
+        <h3>Response:</h3>
+        <pre>{{ responseData | json }}</pre>
+    </div>
+</div>

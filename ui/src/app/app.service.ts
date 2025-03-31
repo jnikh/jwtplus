@@ -156,6 +156,20 @@ export class AppService {
       environment.APIENDPOINT + `/app/${appId}/pub-keys`
     );
   }
+  generateAuthTokens(appId: string, payload: any): Observable<any> {
+    return this.http.post<any>(
+      environment.APIENDPOINT + `/app/${appId}/sign`,
+      payload
+    );
+  }
+  verifyAuthToken(appId:string,payload: any):Observable<any>{
+    return this.http.post<any>(
+      environment.APIENDPOINT +`/app/${appId}/verify`,
+      payload
+    )
+  }
+  
+  
 
 
 }  
