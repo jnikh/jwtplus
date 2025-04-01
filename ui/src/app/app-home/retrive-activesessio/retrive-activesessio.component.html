@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <h2>Retrieve Active Login Sessions</h2>
+    <form [formGroup]="authForm" (ngSubmit)="retriveActiveToken()">
+        <div class="mb-3">
+            <label class="form-label">Sub</label>
+            <input formControlName="sub" type="text" class="form-control" placeholder="Enter Email ID" required> <!-- ✅ Fixed extra space -->
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+    <div *ngIf="responseData.length > 0">
+        <h2>Response</h2>
+        <div *ngFor="let session of responseData">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <p><strong>Token ID:</strong> {{ session.token_id }}</p>
+                    <p><strong>Key ID:</strong> {{ session.key_id }}</p>
+                    <p><strong>Auth Token Issued:</strong> {{ session.auth_token_iat }}</p>
+                    <p><strong>Auth Token Expires:</strong> {{ session.auth_token_exp }}</p>
+                    <p><strong>Refresh Token Expires:</strong> {{ session.refresh_token_exp }}</p>
+                    <p><strong>IP Address:</strong> {{ session.ip_address }}</p>
+                    <p><strong>User Agent:</strong> {{ session.user_agent }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="responseData.length === 0">
+        <p class="text-danger">No active sessions found.</p>
+    </div>
+</div>

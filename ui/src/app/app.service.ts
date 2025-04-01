@@ -168,6 +168,26 @@ export class AppService {
       payload
     )
   }
+  renewAuthToken(appId:string,payload:any):Observable<any>{
+    return this.http.post<any>(
+   environment.APIENDPOINT +`/app/${appId}/renew`,
+   payload
+    )
+  }
+  retriveActiveSession(appId:string,payload:any):Observable<any>{
+    return this.http.post<any>(
+      environment.APIENDPOINT+`/app/${appId}/get-session`,
+      payload
+    )
+  }
+
+  logoutTokens(appId:string, payload:any):Observable<any>{
+    return this.http.post<any>(
+      environment.APIENDPOINT+`/app/${appId}/revoke-token`,
+      payload
+    )
+  }
+  
   
   
 
