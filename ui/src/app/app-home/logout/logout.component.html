@@ -1,1 +1,17 @@
-<p>logout works!</p>
+<div class="container mt-5 ">
+   <h2>Logout </h2>
+   <form [formGroup]="authForm" (ngSubmit)="logooutToken()">
+    <div class="mb-3">
+     <label for="" class="form-label mb-3">
+        Token
+     </label>
+     <input type="text" formControlName="token" class="form-control"  placeholder="Enter the token" required>
+    </div>
+     <button class="btn btn-primary w-full  " type="submit">Submit</button>
+   </form>
+
+   <div *ngIf="responseData.length >0">
+     <pre>{{responseData | json}}</pre>
+
+   </div>
+</div>

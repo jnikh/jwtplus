@@ -1,12 +1,11 @@
-<div>
+<div class="container my-5 ">
     <h2>Verify Auth token</h2>
     <form [formGroup]="authForm" (ngSubmit)="verifyAuthToken()">
-        <label>Subject (sub):</label>
-        <input formControlName="token" type="text" placeholder="Enter subject" required />
 
-        
+        <label class="form-label mb-3">Subject (sub):</label>
+        <input formControlName="token" class="form-control" />       
 
-        <button type="submit">Generate Tokens</button>
+        <button type="submit" class="btn btn-outline-primary">Generate Tokens</button>
     </form>
 
 </div>

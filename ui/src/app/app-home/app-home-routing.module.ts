@@ -7,6 +7,7 @@ import { AuthTokenComponent } from './auth-token/auth-token.component';
 import { VerifyAuthtokenComponent } from './verify-authtoken/verify-authtoken.component';
 import { RenewAuthComponent } from './renew-auth/renew-auth.component';
 import { RetriveActivesessioComponent } from './retrive-activesessio/retrive-activesessio.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', component: ListAppComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   {path:'verifyAuth',component:VerifyAuthtokenComponent},
   {path:'renewAuth',component:RenewAuthComponent},
   {path:'getActivesession',component:RetriveActivesessioComponent},
-  {}
+ {path:'logoutActivesession', component:LogoutComponent}
 ];
 
 @NgModule({

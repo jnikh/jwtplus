@@ -26,7 +26,7 @@ export class RetriveActivesessioComponent implements OnInit {
     if (this.authForm.valid) {
       this.appservice.retriveActiveSession(this.appId, this.authForm.value).subscribe({
         next: (resp) => {
-          this.responseData = resp?.sessions || []; // ✅ Handle array response
+          this.responseData = resp|| []; 
           console.log('Response:', this.responseData);
         },
         error: (err) => {

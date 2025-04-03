@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService , Appdata} from '../../app.service';
 
+
 @Component({
   selector: 'app-list-app',
   standalone: false,
   templateUrl: './list-app.component.html',
-  styleUrl: './list-app.component.scss'
+  styleUrl: './list-app.component.scss',
 })
 export class ListAppComponent implements OnInit{
    appdata!: Appdata;
@@ -34,5 +35,20 @@ export class ListAppComponent implements OnInit{
    }
    goToPubKey() {
     this.router.navigate(['/app-home/getpub']);
+  }
+  goToGenerate() {
+    this.router.navigate(['/app-home/generateAuth']);
+  }
+  goToVerify() {
+    this.router.navigate(['/app-home/verifyAuth']);
+  }
+  goToRenew() {
+    this.router.navigate(['/app-home/renewAuth']);
+  }
+  goToRetrive() {
+    this.router.navigate(['/app-home/getActivesession']);
+  }
+  goToLogout() {
+    this.router.navigate(['/app-home/logoutActivesession']);
   }
 }

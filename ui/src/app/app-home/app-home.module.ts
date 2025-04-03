@@ -10,6 +10,7 @@ import { VerifyAuthtokenComponent } from './verify-authtoken/verify-authtoken.co
 import { RenewAuthComponent } from './renew-auth/renew-auth.component';
 import { RetriveActivesessioComponent } from './retrive-activesessio/retrive-activesessio.component';
 import { LogoutComponent } from './logout/logout.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { LogoutComponent } from './logout/logout.component';
   imports: [
     CommonModule,
     AppHomeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbDropdownModule
   ]
 })
 export class AppHomeModule {
