@@ -1,11 +1,14 @@
 <div class="container my-5 ">
+    <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Verify Auth token</h2>
+    <svg  xmlns="http://www.w3.org/2000/svg" (click)="gotohomePage()" style="cursor: pointer;" width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevrons-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 7l-5 5l5 5" /><path d="M17 7l-5 5l5 5" /></svg>
+</div>
     <form [formGroup]="authForm" (ngSubmit)="verifyAuthToken()">
-
-        <label class="form-label mb-3">Subject (sub):</label>
-        <input formControlName="token" class="form-control" />       
-
-        <button type="submit" class="btn btn-outline-primary">Generate Tokens</button>
+      <div class="mb-3">
+        <label class="form-label mb-3 ">Token</label>
+        <textarea formControlName="token" rows="4" class="form-control" placeholder="Enter Your Auth Token" required ></textarea>   
+    </div>
+        <button type="submit" class="btn btn-primary">Verify token</button>
     </form>
 
 </div>

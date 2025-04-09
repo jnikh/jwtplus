@@ -1,12 +1,16 @@
 <div class="container mt-5 ">
+   <div class="d-flex justify-content-between align-items-center">
    <h2>Logout </h2>
+   <svg  xmlns="http://www.w3.org/2000/svg" (click)="gotohomePage()" style="cursor: pointer;"  width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevrons-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 7l-5 5l5 5" /><path d="M17 7l-5 5l5 5" /></svg>
+</div>
    <form [formGroup]="authForm" (ngSubmit)="logooutToken()">
-    <div class="mb-3">
-     <label for="" class="form-label mb-3">
-        Token
-     </label>
-     <input type="text" formControlName="token" class="form-control"  placeholder="Enter the token" required>
-    </div>
+      <div class="mb-3">
+         <label for="" class="form-label mb-3">
+           Token
+         </label>
+         <textarea formControlName="token" class="form-control" placeholder="Enter the token" required rows="4"></textarea>
+       </div>
+       
      <button class="btn btn-primary w-full  " type="submit">Submit</button>
    </form>
 

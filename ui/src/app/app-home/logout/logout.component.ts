@@ -1,4 +1,5 @@
 import { Component , OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms'; 
 import { AppService } from '../../app.service';
 
@@ -12,7 +13,7 @@ export class LogoutComponent implements OnInit {
    authForm!: FormGroup;
    responseData: any = [];
    appId: string = ''; 
-   constructor(private fb:FormBuilder, private appservice:AppService){}
+   constructor(private fb:FormBuilder, private appservice:AppService , private router: Router){}
    ngOnInit(): void {
      this.appId = sessionStorage.getItem('appId') || '';
      this.authForm  = this.fb.group({
@@ -32,5 +33,8 @@ export class LogoutComponent implements OnInit {
         }
       })
     }
+   }
+   gotohomePage(){
+    this.router.navigate(['/app-home/'])
    }
 }

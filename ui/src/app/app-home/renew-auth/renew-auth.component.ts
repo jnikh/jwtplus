@@ -1,4 +1,5 @@
 import { Component ,OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder , FormGroup ,Validator, Validators } from '@angular/forms';
 import { AppService } from '../../app.service';
 
@@ -13,7 +14,7 @@ export class RenewAuthComponent implements OnInit {
   authForm!: FormGroup;
   responseData: any = null;
   appId: string = ''; 
-  constructor(private fb:FormBuilder, private appservice:AppService){}
+  constructor(private fb:FormBuilder, private appservice:AppService , private route:Router){}
   ngOnInit(): void {
     this.appId = sessionStorage.getItem('appId') || ''
     this.authForm = this.fb.group({
@@ -34,5 +35,8 @@ export class RenewAuthComponent implements OnInit {
         }
       })
      }
+  }
+  gotohomePage(){
+    this.route.navigate(['/app-home/'])
   }
 }

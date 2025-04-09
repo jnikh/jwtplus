@@ -1,4 +1,5 @@
 import { Component , OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder , FormGroup ,Validator, Validators } from '@angular/forms';
 import { AppService } from '../../app.service';
 
@@ -12,7 +13,7 @@ export class VerifyAuthtokenComponent implements OnInit {
   appId: string = ''; 
  responseData:any  = null;
  authForm! : FormGroup
-  constructor(private fb: FormBuilder , private appService:AppService){}
+  constructor(private fb: FormBuilder , private appService:AppService , private route:Router){}
   
   ngOnInit(): void {
     this.appId = sessionStorage.getItem('appId') || ''
@@ -33,5 +34,8 @@ export class VerifyAuthtokenComponent implements OnInit {
           
         })
       }
+  }
+  gotohomePage(){
+    this.route.navigate(['/app-home/'])
   }
 }

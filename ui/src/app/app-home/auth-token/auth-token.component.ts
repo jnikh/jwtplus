@@ -1,6 +1,7 @@
 import { Component ,OnInit } from '@angular/core';
 import { FormBuilder , FormGroup ,Validator, Validators } from '@angular/forms';
 import { AppService } from '../../app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-token',
@@ -12,7 +13,7 @@ export class AuthTokenComponent implements OnInit{
   authForm!: FormGroup;
   responseData: any = null;
   appId: string = ''; 
-  constructor(private fb: FormBuilder , private appService:AppService){}
+  constructor(private fb: FormBuilder , private appService:AppService ,private router:Router){}
    ngOnInit(): void {
      this.appId = sessionStorage.getItem('appId') || ''
      this.authForm = this.fb.group({
@@ -38,5 +39,8 @@ export class AuthTokenComponent implements OnInit{
 
       
     }
+   }
+   gotohomePage(){
+    this.router.navigate(['/app-home/'])
    }
 }
