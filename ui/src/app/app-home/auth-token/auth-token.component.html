@@ -7,18 +7,30 @@
         <div class="mb-3">
         <label class="form-label">Subject (sub):</label>
         <input formControlName="sub" class="form-control" id="exampleInputEmail1" type="text" placeholder="Enter subject"  required />
+       <small class="text-danger" *ngIf="authForm.controls['sub'].invalid && authForm.controls['sub'].touched">
+         sub is required
+       </small>
     </div>
       <div class="mb-3">
         <label class="form-label">Audience (aud):</label>
         <input formControlName="aud"  class="form-control" type="text" placeholder="Enter audience" required />
+        <small class="text-danger" *ngIf="authForm.controls['aud'].invalid && authForm.controls['aud'].touched">
+            Audience is required
+          </small>
     </div>
     <div class="mb-3">
         <label class="form-label">IP Address:</label>
         <input formControlName="ip" class="form-control" type="text" placeholder="Enter IP address" required />
+        <small class="text-danger" *ngIf="authForm.controls['ip'].invalid && authForm.controls['ip'].touched">
+            Ip address is required
+          </small>
     </div>
     <div class="mb-3">
         <label class="form-label">User Agent:</label>
         <input formControlName="userAgent" class="form-control" type="text" placeholder="Enter user agent" required /> 
+        <small class="text-danger" *ngIf="authForm.controls['userAgent'].invalid && authForm.controls['userAgent'].touched">
+            user agent is required
+          </small>
     </div>
 
         <button type="submit" class="btn btn-primary">Generate Tokens</button>

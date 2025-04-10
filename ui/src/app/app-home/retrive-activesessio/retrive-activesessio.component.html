@@ -8,6 +8,9 @@
         <div class="mb-3">
             <label class="form-label">Sub</label>
             <input formControlName="sub" type="text" class="form-control" placeholder="Enter Email ID" required> <!-- ✅ Fixed extra space -->
+            <small class="text-danger" *ngIf="authForm.controls['sub'].invalid && authForm.controls['sub'].touched">
+                sub is required
+              </small>
         </div>
         <button class="btn btn-primary" type="submit">Retrieve Active Sessions</button>
     </form>

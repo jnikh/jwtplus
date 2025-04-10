@@ -7,14 +7,23 @@
     <div class="mb-3">
     <label class="form-label">Referesh Token:</label>
     <textarea formControlName="refresh_token" rows="4" type="text"  class="form-control" placeholder="Enter Referesh Token " required > </textarea>
+    <small class="text-danger" *ngIf="authForm.controls['refresh_token'].invalid && authForm.controls['refresh_token'].touched">
+      Referesh token is required
+    </small>
    </div>
    <div class="mb-3">
     <label class="form-label">Ip Address :</label>
     <input formControlName="ip" type="text" class="form-control" placeholder="Enter Ip address" required />
+    <small class="text-danger" *ngIf="authForm.controls['ip'].invalid && authForm.controls['ip'].touched">
+      Ip Address is required
+    </small>
 </div>
  <div class="mb-3">
     <label class="form-label">User Agent:</label>
     <input formControlName="useragent" rows="4" type="text" class="form-control" placeholder="Enter user Agent" required />
+    <small class="text-danger" *ngIf="authForm.controls['useragent'].invalid && authForm.controls['useragent'].touched">
+       User agent is required
+    </small>
 </div>
     
 
